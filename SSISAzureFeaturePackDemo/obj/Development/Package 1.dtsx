@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/20/2015 1:04:40 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HAMBODESKTOP"
+  DTS:CreatorName="HAMBODESKTOP\hambo"
+  DTS:DTSID="{636B5BC1-9F82-4152-9522-43A5AB076A91}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.900.80"
+  DTS:LocaleID="3079"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="16"
+  DTS:VersionGUID="{A09EAA09-7C94-4F14-B15D-92FF431BF568}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Download]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{FD30B831-994D-4F27-88FD-475FDF71A557}"
+      DTS:ObjectName="Download">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="2"
+          DTS:ConnectionString="c:\SSIS\Download" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{446184ED-DE2A-4AD3-8DC3-1F8DC930A33B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="fileName">
+      <DTS:VariableValue
+        DTS:DataType="8">files/File1.txt</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\File System Task"
+      DTS:CreationName="Microsoft.FileSystemTask"
+      DTS:Description="File System Task"
+      DTS:DTSID="{48E33283-D04B-4CB1-B8E1-88586AFC03DE}"
+      DTS:ExecutableType="Microsoft.FileSystemTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="File System Task"
+      DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2016 CTP3.2; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <FileSystemData
+          TaskOperationType="DeleteDirectoryContent"
+          TaskSourcePath="{FD30B831-994D-4F27-88FD-475FDF71A557}" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{62F4A4A6-A0CC-4110-8AD5-8F833EAFE080}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="ForEachBlobEnumerator"
+        DTS:DTSID="{98A65A67-1DEE-4D14-93F9-9BCFB67D648A}"
+        DTS:ObjectName="{98A65A67-1DEE-4D14-93F9-9BCFB67D648A}">
+        <DTS:ObjectData>
+          <FEECloudEnumerator
+            Connection="{7379C280-97D4-4731-947C-D2A6ADD55CA5}"
+            Container="container"
+            BlobPath="files/"
+            FileNameFilter="*"
+            TimeRangeFrom="01.01.1900 00:00:00 +01:00"
+            TimeRangeTo="31.12.2200 00:00:00 +01:00" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Azure Blob Download Task"
+          DTS:CreationName="CopyFromBlobTask"
+          DTS:Description="Azure Blob Download Task"
+          DTS:DTSID="{C100E967-E0BC-4FFC-B9F7-56D982D999B0}"
+          DTS:ExecutableType="CopyFromBlobTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Azure Blob Download Task"
+          DTS:TaskContact="Azure Blob Download Task; (C) Microsoft Corporation; All Rights Reserved"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="FileName">SUBSTRING( @[User::fileName], 7, 25 )</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <CopyFromBlobTask
+              ConnectionId="{7379C280-97D4-4731-947C-D2A6ADD55CA5}"
+              BlobContainer="container"
+              BlobDirectory="files/"
+              LocalDirectory="c:\SSIS\Download"
+              FileNameFilter="File1.txt"
+              TimeRangeFrom="01.01.1900 00:00:00 +01:00"
+              TimeRangeTo="31.12.2200 00:00:00 +01:00" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{878E81BC-0C32-44DF-A427-1B94806B0A52}"
+          DTS:ObjectName="{878E81BC-0C32-44DF-A427-1B94806B0A52}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::fileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C5890694-1F50-4D6C-A1F0-9DC293E83F07}"
+      DTS:From="Package\File System Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Foreach Loop Container" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158,42"
+          Id="Package\File System Task"
+          TopLeft="100,57" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Foreach Loop Container\Azure Blob Download Task"
+          TopLeft="36,32" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="263,105"
+          Size="263,148"
+          Id="Package\Foreach Loop Container"
+          TopLeft="42,144" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="176.25,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="ssisdemo"
+  DTS:DTSID="{7379C280-97D4-4731-947C-D2A6ADD55CA5}"
+  DTS:CreationName="AzureStorage">
+  <DTS:ObjectData>
+    <AzureStorageConnectionManager
+      ConnectionString="DefaultEndpointsProtocol=https;AccountName=ssisdemo;">
+      <AccountKey
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAVo/KIOyHxEesz5wJdd9SpwAAAAACAAAAAAAQZgAAAAEAACAAAAAZUbKXOQrincH8E5LmAOMWauJMjvyn2a2rh81pco+9LQAAAAAOgAAAAAIAACAAAAB44zTLiCuFpYlpR1v2MjGbbzeIRTKMR6YNT5hYhuYPsIAAAAAZDMjXW+XdEgFfYR5mIQSoTcm6pqHwEMgsjzAMuJCoTWMhf3abe2H6TUYGTDTfbmLnQt1ZPP1/hQAhn0W4sWlhIe8pkb8zgX6ya/5yJA3K4NJtP5BLn/TFHP3VySIJ+6JYoXzXcP19pbQCUH43jBxon/doCvEyQ08YgGdMDY2mrEAAAACxwX5xBPkr/1MT2bTaJQ6N4aZo36Zyfzds7e2zk5Kf00CHqWpjM8xCL25TNHecUN7NQPPkcA8/aOEvasp2CGsY</AccountKey>
+    </AzureStorageConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
